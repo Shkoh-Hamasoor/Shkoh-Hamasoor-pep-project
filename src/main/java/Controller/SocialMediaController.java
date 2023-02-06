@@ -27,7 +27,7 @@ public class SocialMediaController {
         Javalin app = Javalin.create();
         app.get("example-endpoint", this::exampleHandler);
         app.get("/messages", this::getAllMessagesHandler); //retrieve all messages
-        app.start(8080);
+        
 
         return app;
     }
