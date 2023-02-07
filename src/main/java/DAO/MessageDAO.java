@@ -13,6 +13,7 @@ public class MessageDAO {
 
     /*
      * retrieve all messages
+     * TODO FINISHED
      */
     public List<Message> getAllMessages(){
         Connection connection = ConnectionUtil.getConnection();
@@ -66,17 +67,21 @@ public class MessageDAO {
     }
     /*
      * Create a new message
-     * TODO write sql logic and preparedstatement logic
+     * TODO FINISHED
      */
     public Message CreateMessage(Message message){
         Connection connection = ConnectionUtil.getConnection();
         try{
             //sql logic here
-            String sql = "TODO";
+            String sql = "INSERT INTO Message (message_id,posted_by,message_text,time_posted_epoch) VALUES (?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             //prepared satement here
-            
+            preparedStatement.setInt(1,message.getMessage_id());
+            preparedStatement.setInt(2, message.getPosted_by());
+            preparedStatement.setString(3, message.getMessage_text());
+            preparedStatement.setLong(4, message.getTime_posted_epoch());
+
             preparedStatement.executeUpdate();
             return message;
         }catch(SQLException e ){
@@ -121,16 +126,24 @@ public class MessageDAO {
      * update message text by id
      * TODO write sql logic and preparedstatement logic
      */
-    public void updatMessage(int message_id, String message_text){
+    public Message updateMessage(int message_id, String message_text){
         Connection connection = ConnectionUtil.getConnection();
 
         try{
             //sql logic here
-            String sql = "TODO";
+            String sql = "UPDATE message SET message_text = ? WHERE message_id =?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            //preparedstatement logic here
 
-            preparedStatement.executeUpdate();
+            //preparedstatement logic here
+            preparedStatement.setString(1, message_text);
+            preparedStatement.setInt(2, message_id);
+
+            int temp = preparedStatement.executeUpdate();
+            if(temp==0){
+                return null;
+            }
+
+            
 
         }catch(SQLException e){
             System.out.println(e.getMessage());
