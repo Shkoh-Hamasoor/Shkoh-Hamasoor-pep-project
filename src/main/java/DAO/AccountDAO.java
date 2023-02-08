@@ -49,7 +49,7 @@ public class AccountDAO {
 
             //preparedstatement logic here
             preparedStatement.setString(1, account.getUsername());
-            preparedStatement.setString(2, account.getUsername());
+            preparedStatement.setString(2, account.getPassword());
 
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
