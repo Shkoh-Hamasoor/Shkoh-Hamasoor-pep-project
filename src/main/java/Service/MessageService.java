@@ -36,10 +36,11 @@ public class MessageService {
      */
     public Message addMessage(Message message){
         int message_id = message.getMessage_id();
+
         if(messageDAO.getMessageByID(message_id)==null){
             return messageDAO.CreateMessage(message);
-
         }
+
         else{
             return null;
         }
@@ -64,5 +65,27 @@ public class MessageService {
             return null;
         }
     }
+    /*
+     * delete message by ID
+     */
+    public Message deleteMessageByID(int message_id){
+        Message deleteMessage_id = messageDAO.getMessageByID(message_id);
+       
+        if(deleteMessage_id!=null){
+            return  messageDAO.deleteMessageByID(message_id);
+        }
+        
+        else{
+            return null;
+        }
+    }
+
+    /*
+     * retrieve all messages from particular user
+     */
+    public List<Message> getAllMessagesFromUser(int posted_by){
+        return messageDAO.getAllMessagesFromUser(posted_by);
+    }
+
     }
 
