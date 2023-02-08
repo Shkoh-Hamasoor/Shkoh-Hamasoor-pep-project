@@ -1,8 +1,12 @@
 package Controller;
 import java.util.List;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import Model.Account;
 import Model.Message;
+import Service.AccountService;
 import Service.MessageService;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
@@ -14,9 +18,11 @@ import io.javalin.http.Context;
  */
 public class SocialMediaController {
     MessageService messageService;
+    AccountService accountService;
 
     public SocialMediaController(){
         this.messageService = new MessageService();
+        this.accountService = new AccountService();
     }
     /**
      * In order for the test cases to work, you will need to write the endpoints in the startAPI() method, as the test
@@ -32,6 +38,8 @@ public class SocialMediaController {
         app.get("/messages/{message_id}", this::getMessageByIDHandler); //retrieve messages by id
         app.get("/messages", this::getAllMessagesHandler); //retrieve all messages
         app.post("/messages", this::postMessagesHandler); //create messages 
+        app.post("/register", this::postAddNewAccountHandler); //create user
+        app.post("/login",this::postUserLogins); // validates user login
         app.delete("/messages/{message_id}", this::getDeleteMessageByIDHandler); //deletes message 
         
         return app;
@@ -141,7 +149,44 @@ public class SocialMediaController {
             context.status(400);
         }
     }
-    }
-    
-     
+    /*
+     * create new user
+     */
+    public void postAddNewAccountHandler(Context context) throws JsonProcessingException{
+        ObjectMapper map = new ObjectMapper();
+        Account account = map.readValue(context.body(), Account.class);
+        Account addedAccount  = accountService.addnewAccount(account);
 
+        if(addedAccount!=null){
+            context.json(map.writeValueAsString(addedAccount));
+            context.status(200);
+        }
+        else{
+            context.status(400);
+        }
+    }
+    /*
+     * user logins
+     */
+    public void postUserLogins(Context context) throws JsonProcessingException{
+        ObjectMapper map = new ObjectMapper();
+        Account account = map.readValue(context.body(), Account.class);
+        Account userLogin = accountService.getUserLogins(account);
+
+        if(userLogin!= null){
+            context.json(map.writeValueAsString(userLogin));
+            context.status(200);
+        }
+        else{
+            context.status(401);
+        }
+    }
+
+    }
+   
+
+    // - The login will be successful if and only if the username and password 
+    // provided in the request body JSON match a real account existing on the database. 
+    // If successful, the response body should contain a JSON of the account in the response body, 
+    // including its account_id. The response status should be 200 OK, which is the default.
+    // - If the login is not successful, the response status should be 401. (Unauthorized)
