@@ -48,7 +48,7 @@ public class MessageService {
         }
         else if(message.posted_by<=1){
             System.out.println("must be posted by an exisiting user");
-            return null;
+            //return null;
             
         }
         return messageDAO.CreateMessage(message);

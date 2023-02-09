@@ -89,7 +89,7 @@ public class SocialMediaController {
      */
     public void getMessageByIDHandler(Context context) throws JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
-        int message_id = Integer.parseInt(context.pathParam("mesage_id"));
+        int message_id = Integer.parseInt(context.pathParam("message_id"));
         Message message = messageService.getMessageByID(message_id);
 
         if(message!=null){
@@ -138,7 +138,7 @@ public class SocialMediaController {
      */
     public void getAllMessagesFromParticularUserHandler(Context context) throws JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
-        int posted_by = Integer.parseInt(context.pathParam("posted_by"));
+        int posted_by = Integer.parseInt(context.pathParam("account_id"));
         List<Message> messages = messageService.getAllMessagesFromUser(posted_by);
 
         if(messages!=null){

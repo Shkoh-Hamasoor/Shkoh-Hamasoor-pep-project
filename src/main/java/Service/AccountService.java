@@ -27,7 +27,6 @@ public class AccountService {
 //The registration will be successful if and only if the username is not blank, 
 //the password is at least 4 characters long, 
 //and an Account with that username does not already exist. 
-        //boolean isUnique = true;
         if(account.username ==""){ //dont put a space (counts as a nonblank)
             System.out.println("username can't be blank ");
             return null;
@@ -38,6 +37,7 @@ public class AccountService {
         }
         else if(account.username.equals(account.username)){
             System.out.println("username is already created ");
+            
             
       }
       return accountDAO.addNewAccount(account);
