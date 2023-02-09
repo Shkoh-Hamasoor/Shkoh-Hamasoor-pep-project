@@ -42,7 +42,7 @@ public class MessageService {
             System.out.println("message cant be blank");
             return null;
         }
-        else if(message.message_text.length()<=255){
+        else if(message.message_text.length()>=255){
             System.out.println("message cant be over 255 characters");
             return null;
         }
@@ -67,22 +67,26 @@ public class MessageService {
 //     the update of a message should be successful if and only 
 //      if the message id already exists 
 //     and the new message_text is not blank and is not over 255 characters. 
+
     public Message updatMessageID(int message_id, Message message){
-        if(message.getMessage_text()==""){
-            System.out.println("message cant be blank");
+   
+         if(message.message_text !="" && message.message_text.length() <=255){
+            return messageDAO.updateMessage(message_id, message);
+        }   
+        else{
             return null;
         }
-        else if(message.message_text.length()>=255){
-            System.out.println("message is over 255 characters");
-            return null;
-        }
-        //  if(!message.getMessage_text().isBlank() && message.getMessage_text().length() <=255){
-        //     return messageDAO.updateMessage(message_id, message);
-        // }   
-        // else{
+             // if(message.getMessage_text()==""){
+        //     System.out.println("message cant be blank");
         //     return null;
-        return messageDAO.updateMessage(message_id, message);
+        // }
+        // else if(message.message_text.length()>=255){
+        //     System.out.println("message is over 255 characters");
+        //     return null;
+        // }
     }
+      
+    
     /*
      * delete message by ID
      */
