@@ -32,8 +32,7 @@ public class SocialMediaController {
     public Javalin startAPI() {
         Javalin app = Javalin.create();
         app.get("example-endpoint", this::exampleHandler); //ignore
-
-
+       
         app.get("/accounts/{account_id}/messages",this::getAllMessagesFromParticularUserHandler); // gets messages from a particular user
         app.get("/messages/{message_id}", this::getMessageByIDHandler); //retrieve messages by id
         app.get("/messages", this::getAllMessagesHandler); //retrieve all messages
@@ -109,11 +108,11 @@ public class SocialMediaController {
     public void patchMessageByIDHandler(Context context) throws JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
         int message_id = Integer.parseInt(context.pathParam("message_id"));
-        Message temp = map.readValue(context.body(), Message.class);
-        Message message = messageService.updatMessageID(message_id, temp);
+        Message message = map.readValue(context.body(), Message.class);
+        Message patchMessage = messageService.updatMessageID(message_id, message);
 
-        if(message!=null){
-            context.json(map.writeValueAsString(message));
+        if(patchMessage!=null){
+            context.json(map.writeValueAsString(patchMessage));
             context.status(200);
         }
 
