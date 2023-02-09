@@ -75,7 +75,6 @@ public class SocialMediaController {
         Message addedMessage = messageService.addMessage(message);
 
         if(addedMessage!=null){
-            
             context.json(map.writeValueAsString(addedMessage));
             context.status(200);
         }
@@ -86,7 +85,7 @@ public class SocialMediaController {
     }
 
     /*
-     * retrieve message by id
+     * Handler to retrieve message by id
      */
     public void getMessageByIDHandler(Context context) throws JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
@@ -103,7 +102,7 @@ public class SocialMediaController {
         }
     }
     /*
-     * update message by id (PATCH)
+     * Handler to update message by id (PATCH)
      */
     public void patchMessageByIDHandler(Context context) throws JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
@@ -121,7 +120,7 @@ public class SocialMediaController {
         }
     }
     /*
-     * delete message by its id
+     * Handler to delete message by its id
      */
     public void getDeleteMessageByIDHandler(Context context) throws JsonProcessingException{
 
@@ -135,7 +134,7 @@ public class SocialMediaController {
         } 
     }
     /*
-     * retrieve message from particular user
+     * Handler to retrieve message from particular user
      */
     public void getAllMessagesFromParticularUserHandler(Context context) throws JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
@@ -152,7 +151,7 @@ public class SocialMediaController {
         }
     }
     /*
-     * create new user
+     * Handler to create new user
      */
     public void postAddNewAccountHandler(Context context) throws JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
@@ -168,7 +167,7 @@ public class SocialMediaController {
         }
     }
     /*
-     * user logins
+     * Handler to user logins
      */
     public void postUserLogins(Context context) throws JsonProcessingException{
         ObjectMapper map = new ObjectMapper();
