@@ -33,14 +33,15 @@ public class SocialMediaController {
         Javalin app = Javalin.create();
         app.get("example-endpoint", this::exampleHandler); //ignore
 
+
         app.get("/accounts/{account_id}/messages",this::getAllMessagesFromParticularUserHandler); // gets messages from a particular user
-        app.patch("/messages/{message_id}", this::patchMessageByIDHandler);
         app.get("/messages/{message_id}", this::getMessageByIDHandler); //retrieve messages by id
         app.get("/messages", this::getAllMessagesHandler); //retrieve all messages
         app.post("/messages", this::postMessagesHandler); //create messages 
         app.post("/register", this::postAddNewAccountHandler); //create user
         app.post("/login",this::postUserLogins); // validates user login
-        app.delete("/messages/{message_id}", this::getDeleteMessageByIDHandler); //deletes message 
+        app.delete("/messages/{message_id}", this::getDeleteMessageByIDHandler); //deletes message
+        app.patch("/messages/{message_id}", this::patchMessageByIDHandler); 
         
         return app;
     }
@@ -58,6 +59,7 @@ public class SocialMediaController {
      * Handler to retrieve all messages.
      */
     public void getAllMessagesHandler(Context context){
+    
         List<Message> messages = messageService.getAllMessages();
         context.json(messages);
 
@@ -128,9 +130,9 @@ public class SocialMediaController {
         Message message = messageService.deleteMessageByID(message_id);
 
         if(message!=null){
-            context.json(map.writeValueAsString(message));
+            context.json(map.writeValueAsString(message));  
             context.status(200);
-        }
+        } 
     }
     /*
      * retrieve message from particular user
