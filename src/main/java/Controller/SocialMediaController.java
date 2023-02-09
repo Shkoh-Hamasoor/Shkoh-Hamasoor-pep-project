@@ -58,7 +58,7 @@ public class SocialMediaController {
     /*
      * Handler to retrieve all messages.
      */
-    public void getAllMessagesHandler(Context context){
+    public void getAllMessagesHandler(Context context) throws JsonProcessingException{
     
         List<Message> messages = messageService.getAllMessages();
         context.json(messages);
@@ -110,7 +110,7 @@ public class SocialMediaController {
         ObjectMapper map = new ObjectMapper();
         int message_id = Integer.parseInt(context.pathParam("message_id"));
         Message temp = map.readValue(context.body(), Message.class);
-        Message message = messageService.updatMessageID(message_id, temp.getMessage_text());
+        Message message = messageService.updatMessageID(message_id, temp);
 
         if(message!=null){
             context.json(map.writeValueAsString(message));
@@ -125,6 +125,7 @@ public class SocialMediaController {
      * delete message by its id
      */
     public void getDeleteMessageByIDHandler(Context context) throws JsonProcessingException{
+
         ObjectMapper map = new ObjectMapper();
         int message_id = Integer.parseInt(context.pathParam("message_id"));
         Message message = messageService.deleteMessageByID(message_id);
