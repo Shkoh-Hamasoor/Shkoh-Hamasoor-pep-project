@@ -54,11 +54,11 @@ public class MessageService {
     }
     
     /*
-     * PATCH ID and message_text
+     * update message by id (PATCH ID)
      */
 
     public Message updatMessageID(int message_id, String message_text){
-        if(!message_text.isBlank()){
+        if(!message_text.isBlank() && message_text.length() <=255){
             return messageDAO.updateMessage(message_id, message_text);
         }   
         else{
@@ -69,10 +69,10 @@ public class MessageService {
      * delete message by ID
      */
     public Message deleteMessageByID(int message_id){
-        Message deleteMessage_id = messageDAO.getMessageByID(message_id);
+        Message deleteMessage_ID = messageDAO.getMessageByID(message_id);
        
-        if(deleteMessage_id!=null){
-            return  messageDAO.deleteMessageByID(message_id);
+        if(deleteMessage_ID!=null){
+           return messageDAO.deleteMessageByID(message_id);
         }
         
         else{

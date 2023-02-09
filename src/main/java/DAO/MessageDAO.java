@@ -105,14 +105,8 @@ public class MessageDAO {
             //prepparedstatement here
             preparedstatment.setInt(1, message_id);
 
-            // ResultSet rs = preparedstatment.executeQuery();
-            // while(rs.next()){
-            //     Message message = new Message(rs.getInt("message_id"),
-            //                     rs.getInt("posted_by"),
-            //                     rs.getString("message_text"),
-            //                     rs.getLong("time_posted_epoch"));
-            //     return message;
-            // }
+            preparedstatment.executeUpdate();
+
         }catch(SQLException e ){
             System.out.println(e.getMessage());
 
@@ -139,23 +133,16 @@ public class MessageDAO {
             preparedStatement.setInt(2, message_id);
 
             preparedStatement.executeUpdate();
-           
-            //sql logic here once the update is complete 
-            String message_idSql = "SELECT * FROM message WHERE message_id =?";
-            PreparedStatement preparedStatement2 = connection.prepareStatement(message_idSql);
-            
-            //preparedstatement2 logic here
-            preparedStatement2.setInt(1, message_id);
-
-            ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
+            return getMessageByID(message_id);
+            //ResultSet rs = preparedStatement.executeQuery();
+            // while(rs.next()){
                
-                Message message = new Message(rs.getInt("message_id"),
-                                rs.getInt("posted_by"),
-                                rs.getString("message_text"),
-                                rs.getLong("time_posted_epoch"));
-                return message;
-            }
+            //     Message message = new Message(rs.getInt("message_id"),
+            //                     rs.getInt("posted_by"),
+            //                     rs.getString("message_text"),
+            //                     rs.getLong("time_posted_epoch"));
+            //     return message;
+            // }
 
         }catch(SQLException e){
             System.out.println(e.getMessage());
@@ -177,7 +164,7 @@ public class MessageDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
             //write preparedstatement logic here 
-            preparedStatement.setInt(2, posted_by);
+            preparedStatement.setInt(1, posted_by);
 
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
