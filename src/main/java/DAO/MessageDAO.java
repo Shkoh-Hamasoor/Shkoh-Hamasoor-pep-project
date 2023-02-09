@@ -14,7 +14,7 @@ public class MessageDAO {
 
     /*
      * retrieve all messages
-     * TODO FINISHED
+     * TODO FINISHED.
      */
     public List<Message> getAllMessages(){
         Connection connection = ConnectionUtil.getConnection();
